@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  "mongodb+srv://dsonani1641:dsonani1641@cluster1.8ifprx7.mongodb.net/?retryWrites=true&w=majority",
+  "mongodburl",
   { useNewUrlParser: true }
 );
 
