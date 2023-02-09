@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <%-include("layout/nav.ejs");-%>
+    <div class="container">
+        <h1>Login here to access Drive Test</h1>
+        <form action="/signup" method="post">
+            <div class="mb-3">
+                <label for="exampleInputID" class="form-label">User ID:</label>
+                <input type="text" autocomplete="off" class="form-control" id="exampleInputID" name="userid">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">Repeated Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" name="repeatedpassword">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputUserType" class="form-label">User type</label>
+                <select id="exampleInputUserType" name="usertype">
+                    <option value="driver" selected>Driver</option>
+                    <option value="examiner">Examiner</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="link-bottom">
+            <a href="/login" class="btn btn-primary"> LogIn </a>
+        </div>
+        </form>
+        <% if(msg){ %>
+        <h1><%=msg%></h1>
+        <% } %>
+    </div>
+</body>
+
+</html>

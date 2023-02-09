@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <%-include("layout/nav.ejs");-%>
+    <div class="container">
+    <h1>Welcome to G Drive Test</h1>
+    <% if(data){ %>
+    <h1><%=data%></h1>
+      <%} else {%>
+      <% if(user.appointmentId) { %>
+          <hr />
+          <div>
+              <p>Your Appointment booked on <b><%= new Date(user.appointmentId.bookingDate).toISOString().split('T')[0]%></b> at <b><%=user.appointmentId.slot%></b></p>
+          </div>
+          <hr />
+      <% } %>
+      <form method="get" action="/G">
+        <div class="container pb-0">
+            <label for="appointmentDate"><b>Select Date</b></label>
+            <input type="date" placeholder="Select date" name="adate" value="<%=availableDateAndSlot.bookingDate%>">
+            <button type="submit" class="btn btn-primary">Get Slot</button>
+        </div>
+      </form>
+      <form action="/G" method="POST">
+        <div class="form-group">
+          <input type="hidden" name="appointmentDate" value="<%=availableDateAndSlot.bookingDate%>" />
+          <div class="mb-3">
+            <label for="slottime"><b>Slots</b></label>
+            <% if(availableDateAndSlot.slots.length == 0) { %>
+                <h6 class="form-h6">No slot available for <%=availableDateAndSlot.bookingDate%></h6>
+            <% } else { %>
+                <select name="slottime" id="slottime">
+                    <% for(let i = 0; i < availableDateAndSlot.slots.length; i++) { %>
+                        <% if(!availableDateAndSlot.slots[i].isBooked) {%>
+                            <option value="<%=availableDateAndSlot.slots[i].time%>"><%=availableDateAndSlot.slots[i].time%></option>
+                        <% } %>
+                    <% } %>
+                </select>
+                <% %>
+            <% } %>
+            </div>
+          <div class="mb-3">
+            <label for="firstname" class="form-label">First name:</label>
+            <input type="text" id="firstname" name="firstname" class="form-control"  value="<%= user.firstname %>" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last name:</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" value="<%= user.lastname %>" readonly >
+        </div>
+        <div class="mb-3">
+            <label for="userid" class="form-label">User ID:</label>
+            <input type="text" id="userid" name="userid" class="form-control"  value="<%= user.userid %>" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">DOB:</label>
+            <input type="date" id="dob" name="dob" class="form-control"  value="<%= user.dob %>" readonly>
+        </div>
+        <div class="mb-3">
+        <label for="address" class="form-label">Address:</label>
+            <input type="text" id="address" name="address" class="form-control"  value="<%= user.address %>" >
+        </div>
+        <div class="mb-3">
+            <label for="cardetails" class="form-label">Car Details:</label>
+            <input type="text" id="cardetails" name="cardetails" class="form-control"  value="<%= user.cardetails %>">
+        </div>
+        <div class="mb-3">
+            <label for="licensenumber" class="form-label">License Number:</label>
+            <input type="text" id="licensenumber" name="licensenumber" class="form-control"  value="<%= user.licensenumber %>" readonly>
+        </div>
+          <input type="submit" class="btn btn-primary" value="update" />
+        </div>
+      </form>
+      <%}%>
+    </div>
+</body>
+</html>
